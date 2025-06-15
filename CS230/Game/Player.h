@@ -44,4 +44,6 @@ private:
     bool is_boosting = false;
     bool was_boosting = false;
     static constexpr double boost_time = 3.0;
+    double exhaust_accumulator = 0.0;    // 연기 qocnf 시간
+    static constexpr double exhaust_interval = 0.1;
 };

@@ -46,7 +46,7 @@ void Mode3::Load() {
     AddGSComponent(new CS230::Score());
 
     GetGSComponent<Background>()->Add("Assets/Road.png", 1.0);
-
+    AddGSComponent(new CS230::ParticleManager<Particles::Exhaust>());
     player_ptr = new Player({ 0, static_cast<double>(Engine::GetWindow().GetSize().y / 2) });
     GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
 
@@ -59,6 +59,7 @@ void Mode3::Load() {
     GetGSComponent<CS230::GameObjectManager>()->Add(new OtherCarManager(this));
     
     AddGSComponent(new CS230::ParticleManager<Particles::Bump>());
+    
     
 
     last_timer = static_cast<int>(timer_max);

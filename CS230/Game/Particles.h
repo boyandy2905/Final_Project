@@ -43,4 +43,11 @@ namespace Particles {
         static constexpr int MaxCount = 150;
         static constexpr double MaxLife = 1.25;
     };
+    class Exhaust : public CS230::Particle {
+    public:
+        Exhaust() : Particle("Assets/Exhaust.spt") {};
+        std::string TypeName() override { return "Exhaust Particle"; }
+        static constexpr int MaxCount = 150;
+        static constexpr double MaxLife = 1.25;
+    };
 }

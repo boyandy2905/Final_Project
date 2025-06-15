@@ -34,7 +34,7 @@ Player::Player(Math::vec2 start_position) :
 void Player::Update(double dt) {
     GameObject::Update(dt);
     CS230::RectCollision* collider = GetGOComponent<CS230::RectCollision>();
-
+    Engine::GetGameStateManager().GetGSComponent<CS230::ParticleManager<Particles::Exhaust>>()->Emit(1, GetPosition(), { 0, 0 }, { -100, 0 }, 2 * PI / 3);
     if (collider->WorldBoundary().Left() < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x) {
         UpdatePosition({ Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x - collider->WorldBoundary().Left(), 0 });
         SetVelocity({ 0, GetVelocity().y });
