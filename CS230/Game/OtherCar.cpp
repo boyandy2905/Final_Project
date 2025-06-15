@@ -12,7 +12,6 @@ Created:    June 14, 2025
 #include "OtherCar.h"
 #include "../Engine/Engine.h"
 #include "../Engine/Window.h"
-#include "../Engine/Score.h"
 #include "Mode3.h"
 
 OtherCar::OtherCar(Math::vec2 position) : GameObject(position) {
@@ -39,7 +38,6 @@ void OtherCar::ResolveCollision(GameObject* other_object) {
         if (static_cast<Player*>(other_object)->IsBoosting()) {
             RemoveGOComponent<CS230::Collision>();
             change_state(&state_broken);
-            Engine::GetGameStateManager().GetGSComponent<CS230::Score>()->Add(100);
         }
     }
 }

@@ -24,7 +24,7 @@ public:
     std::string TypeName() override { return "OtherCar"; }
 
 private:
-    double speed = -200.0;
+    double speed = 50.0;
 
     class State_Broken : public CS230::GameObject::State {
     public:

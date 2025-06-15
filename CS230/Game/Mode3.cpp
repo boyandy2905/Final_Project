@@ -78,6 +78,7 @@ void Mode3::Update(double dt) {
 
 void Mode3::Unload() {
     player_ptr = nullptr;
+    total_distance = 0;
     ClearGSComponents();
 }
 
