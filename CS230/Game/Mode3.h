@@ -36,16 +36,16 @@ public:
 
 private:
     CS230::Texture texture;
-    Player* player_ptr;
-
+    Player* player_ptr = nullptr;              // 초기화
     static constexpr double car_timer = 4.5;
-    double last_time = 0.0;
+    double last_time = 0.0;                  // 초기화
 
-    CS230::Texture* timer_texture;
-    int last_timer;
+    CS230::Texture* timer_texture = nullptr;   // 초기화
+    int last_timer = 0;                    //초기화
     void update_timer_text(int value);
 
-    CS230::Texture* distance_texture;
-    double total_distance = 0.0;
+    CS230::Texture* distance_texture = nullptr;              // 초기화
+    double total_distance = 0.0;                  //  초기화
+    int last_distance = 0;                    // 거리 변경 시 업데이트
     void update_distance_text(int distance);
 };

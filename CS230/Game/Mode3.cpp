@@ -21,8 +21,14 @@ Created:    June 14, 2025
 #include "../Game/OtherCarManager.h"
 #include "../Engine/Score.h"
 
-Mode3::Mode3() {
-
+Mode3::Mode3() : 
+    player_ptr(nullptr), 
+    last_time(0.0), 
+    timer_texture(nullptr), 
+    last_timer(static_cast<int>(timer_max)), 
+    distance_texture(nullptr),
+    total_distance(0.0)
+{
 }
 
 void Mode3::Load() {
@@ -73,10 +79,23 @@ void Mode3::Update(double dt) {
     }
 
     total_distance += player_ptr->GetVelocity().x * dt;
-    update_distance_text(static_cast<int>(total_distance));
+    int cur_dist = static_cast<int>(total_distance);
+    if (cur_dist != last_distance) {
+        last_distance = cur_dist;
+        update_distance_text(cur_dist);
+    }
 }
 
 void Mode3::Unload() {
+    if (timer_texture) {
+        delete timer_texture;
+        timer_texture = nullptr;
+    }
+    if (distance_texture) {
+        delete distance_texture;
+        distance_texture = nullptr;
+    }
+
     player_ptr = nullptr;
     total_distance = 0;
     ClearGSComponents();
@@ -94,9 +113,17 @@ void Mode3::Draw() {
 }
 
 void Mode3::update_timer_text(int value) {
+    if (timer_texture) {
+        delete timer_texture;
+        timer_texture = nullptr;
+    }
     timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(value), 0xFFFFFFFF);
 }
 
 void Mode3::update_distance_text(int distance) {
-    distance_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Distance: " + std::to_string(static_cast<int>(distance)), 0xFFFFFFFF);
+    if (distance_texture) {
+        delete distance_texture;
+        distance_texture = nullptr;
+    }
+    distance_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Distance: " + std::to_string(distance), 0xFFFFFFFF);
 }
