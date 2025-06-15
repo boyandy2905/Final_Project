@@ -42,6 +42,15 @@ void OtherCar::ResolveCollision(GameObject* other_object) {
     }
 }
 
+void OtherCar::Break() {
+    if (current_state == &state_broken) {
+        return;
+    }
+    RemoveGOComponent<CS230::RectCollision>();
+    SetVelocity({ 0, 0 });
+    Destroy();
+}
+
 void OtherCar::State_Broken::Enter(GameObject* object) {
     OtherCar* othercar = static_cast<OtherCar*>(object);
 

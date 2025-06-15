@@ -13,6 +13,7 @@ Created:    June 14, 2025
 #include "../Engine/Engine.h"
 #include "Mode3.h"
 #include "States.h"
+#include "../Game/OtherCar.h"
 
 Player::Player(Math::vec2 start_position) :
     GameObject(start_position)
@@ -105,7 +106,10 @@ bool Player::CanCollideWith(GameObjectTypes other_object_type) {
 
 void Player::ResolveCollision(GameObject* other_object) {
     if (other_object->Type() == GameObjectTypes::OtherCar) {
-        if (!is_boosting && hurt_timer->Remaining() <= 0.0) {
+        if (is_boosting == true) {
+            static_cast<OtherCar*>(other_object)->Break();
+        }
+        else if (hurt_timer->Remaining() <= 0.0) {
             hurt_timer->Set(hurt_time);
             SetVelocity({ GetVelocity().x * 0.3, GetVelocity().y });
             Engine::GetGameStateManager().GetGSComponent<CS230::ParticleManager<Particles::Bump>>()->Emit(2, GetPosition(), { 0, 0 }, { 0, 100 }, 2 * PI / 3);

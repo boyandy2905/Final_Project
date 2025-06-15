@@ -22,6 +22,7 @@ public:
     void ResolveCollision(GameObject* other_object) override;
     GameObjectTypes Type() override { return GameObjectTypes::OtherCar; }
     std::string TypeName() override { return "OtherCar"; }
+    void Break();
 
 private:
     double speed = 50.0;
