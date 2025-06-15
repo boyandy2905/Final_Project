@@ -44,6 +44,6 @@ void OtherCarManager::Update(double dt) {
             Engine::GetGameStateManager().GetGSComponent<CS230::GameObjectManager>()->Add(car);
         }
 
-        spawn_timer.Set(4.5);
+        spawn_timer.Set(1);
     }
 }

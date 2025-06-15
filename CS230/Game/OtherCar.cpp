@@ -16,7 +16,9 @@ Created:    June 14, 2025
 #include "Mode3.h"
 
 OtherCar::OtherCar(Math::vec2 position) : GameObject(position) {
-    AddGOComponent(new CS230::Sprite("Assets/Enemy1.spt", this));
+    int sprite_index = 1 + (rand() % 5);
+    std::string sprite_file = "Assets/Enemy" + std::to_string(sprite_index) + ".spt";
+    AddGOComponent(new CS230::Sprite(sprite_file, this));
     change_state(&state_driving);
 }
 
@@ -53,7 +55,7 @@ void OtherCar::State_Broken::Update(GameObject* object, [[maybe_unused]] double 
     othercar->Destroy();
 }
 void OtherCar::State_Broken::CheckExit([[maybe_unused]] GameObject* object) {
-    
+
 }
 
 void OtherCar::State_Driving::Enter([[maybe_unused]] GameObject* object) {
@@ -61,9 +63,9 @@ void OtherCar::State_Driving::Enter([[maybe_unused]] GameObject* object) {
 }
 void OtherCar::State_Driving::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt) {
     OtherCar* othercar = static_cast<OtherCar*>(object);
-    
+
     othercar->UpdatePosition({ othercar->speed * dt, 0 });
 }
 void OtherCar::State_Driving::CheckExit([[maybe_unused]] GameObject* object) {
-    
+
 }
