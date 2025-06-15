@@ -36,14 +36,12 @@ private:
 
     CS230::Timer* hurt_timer;
     static constexpr double hurt_time = 2.0;
-    //static constexpr double hurt_velocity = 350;
-    //static constexpr double hurt_acceleration = 300;
 
     CS230::Timer* boost_timer;
     CS230::Timer* boost_cooldown_timer;
     bool is_boosting = false;
     bool was_boosting = false;
     static constexpr double boost_time = 3.0;
-    double exhaust_accumulator = 0.0;    // 연기 qocnf 시간
+    double exhaust_accumulator = 0.0;    // 연기 배출 시간
     static constexpr double exhaust_interval = 0.1;
 };

@@ -14,12 +14,10 @@ Created:    June 14, 2025
 #include "../Engine/Engine.h"
 #include "States.h"
 #include "Fonts.h"
-#include "Floor.h"
 #include "Portal.h"
 #include "../Game/Player.h"
 #include "../Game/OtherCar.h"
 #include "../Game/OtherCarManager.h"
-#include "../Engine/Score.h"
 #include "../Engine/Particle.h"
 
 
@@ -43,7 +41,6 @@ void Mode3::Load() {
     AddGSComponent(new CS230::Timer(timer_max));
     AddGSComponent(new CS230::GameObjectManager());
     AddGSComponent(new Background());
-    AddGSComponent(new CS230::Score());
 
     GetGSComponent<Background>()->Add("Assets/Road.png", 1.0);
     AddGSComponent(new CS230::ParticleManager<Particles::Exhaust>());
@@ -59,8 +56,6 @@ void Mode3::Load() {
     GetGSComponent<CS230::GameObjectManager>()->Add(new OtherCarManager(this));
     
     AddGSComponent(new CS230::ParticleManager<Particles::Bump>());
-    
-    
 
     last_timer = static_cast<int>(timer_max);
     update_timer_text(last_timer);
