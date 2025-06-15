@@ -16,7 +16,10 @@ Created:    June 14, 2025
 #include "../Engine/Sprite.h"
 #include "../Game/Background.h"
 #include "../Engine/GameObjectManager.h"
+#include "../Engine/Particle.h" 
 #include "../Engine/Timer.h"
+
+
 
 class Player;
 
@@ -43,6 +46,8 @@ private:
     CS230::Texture* timer_texture = nullptr;   // 초기화
     int last_timer = 0;                    //초기화
     void update_timer_text(int value);
+
+    //CS230::ParticleManager<Smoke>* smoke_manager = nullptr;
 
     CS230::Texture* distance_texture = nullptr;              // 초기화
     double total_distance = 0.0;                  //  초기화

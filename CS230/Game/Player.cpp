@@ -37,18 +37,22 @@ void Player::Update(double dt) {
     if (collider->WorldBoundary().Left() < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x) {
         UpdatePosition({ Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x - collider->WorldBoundary().Left(), 0 });
         SetVelocity({ 0, GetVelocity().y });
+        
     }
     if (collider->WorldBoundary().Right() > Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + Engine::GetWindow().GetSize().x) {
         UpdatePosition({ Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + Engine::GetWindow().GetSize().x - collider->WorldBoundary().Right(), 0 });
         SetVelocity({ 0, GetVelocity().y });
+       
     }
     if (collider->WorldBoundary().Bottom() -20 < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y) {
         UpdatePosition({ 0, Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y - collider->WorldBoundary().Bottom() + 20 });
         SetVelocity({ GetVelocity().x, GetVelocity().y });
+        
     }
     if (collider->WorldBoundary().Top() + 20 > Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y) {
         UpdatePosition({ 0, Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y - collider->WorldBoundary().Top() - 20});
         SetVelocity({ GetVelocity().x, GetVelocity().y });
+        
     }
 
     double current_acceleration = x_acceleration;
@@ -104,6 +108,7 @@ void Player::ResolveCollision(GameObject* other_object) {
         if (!is_boosting && hurt_timer->Remaining() <= 0.0) {
             hurt_timer->Set(hurt_time);
             SetVelocity({ GetVelocity().x * 0.3, GetVelocity().y });
+            Engine::GetGameStateManager().GetGSComponent<CS230::ParticleManager<Particles::Bump>>()->Emit(2, GetPosition(), { 0, 0 }, { 0, 100 }, 2 * PI / 3);
         }
         return;
     }

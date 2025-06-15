@@ -20,6 +20,8 @@ Created:    June 14, 2025
 #include "../Game/OtherCar.h"
 #include "../Game/OtherCarManager.h"
 #include "../Engine/Score.h"
+#include "../Engine/Particle.h"
+
 
 Mode3::Mode3() : 
     player_ptr(nullptr), 
@@ -28,6 +30,7 @@ Mode3::Mode3() :
     last_timer(static_cast<int>(timer_max)), 
     distance_texture(nullptr),
     total_distance(0.0)
+    //smoke_manager(nullptr)
 {
 }
 
@@ -54,6 +57,9 @@ void Mode3::Load() {
     GetGSComponent<CS230::Camera>()->SetLimit({ { 0,0 }, { GetGSComponent<Background>()->GetSize() - Engine::GetWindow().GetSize() } });
 
     GetGSComponent<CS230::GameObjectManager>()->Add(new OtherCarManager(this));
+    
+    AddGSComponent(new CS230::ParticleManager<Particles::Bump>());
+    
 
     last_timer = static_cast<int>(timer_max);
     update_timer_text(last_timer);
