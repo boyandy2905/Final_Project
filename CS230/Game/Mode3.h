@@ -32,8 +32,6 @@ public:
         return "Mode3";
     }
 
-    static constexpr double floor = 80;
-
     static constexpr double timer_max = 40;
 
 private:
@@ -47,7 +45,7 @@ private:
     int last_timer;
     void update_timer_text(int value);
 
-    CS230::Texture* score_texture;
-    int score;
-    void update_score_text(int value);
+    CS230::Texture* distance_texture;
+    double total_distance = 0.0;
+    void update_distance_text(int distance);
 };

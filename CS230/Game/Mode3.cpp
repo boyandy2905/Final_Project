@@ -52,8 +52,7 @@ void Mode3::Load() {
     last_timer = static_cast<int>(timer_max);
     update_timer_text(last_timer);
 
-    score = GetGSComponent<CS230::Score>()->Value();
-    update_score_text(score);
+    update_distance_text(static_cast<int>(total_distance));
 }
 
 void Mode3::Update(double dt) {
@@ -73,10 +72,8 @@ void Mode3::Update(double dt) {
         Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
     }
 
-    if (score != GetGSComponent<CS230::Score>()->Value()) {
-        score = GetGSComponent<CS230::Score>()->Value();
-        update_score_text(score);
-    }
+    total_distance += player_ptr->GetVelocity().x * dt;
+    update_distance_text(static_cast<int>(total_distance));
 }
 
 void Mode3::Unload() {
@@ -92,13 +89,13 @@ void Mode3::Draw() {
 
     Math::ivec2 window_size = Engine::GetWindow().GetSize();
     timer_texture->Draw(Math::TranslationMatrix(Math::ivec2{ window_size.x - 10 - timer_texture->GetSize().x, window_size.y - timer_texture->GetSize().y - 5 }));
-    score_texture->Draw(Math::TranslationMatrix(Math::ivec2{ window_size.x - 10 - score_texture->GetSize().x, window_size.y - score_texture->GetSize().y - 100 }));
+    distance_texture->Draw(Math::TranslationMatrix(Math::ivec2{ window_size.x - 10 - distance_texture->GetSize().x, window_size.y - distance_texture->GetSize().y - 100 }));
 }
 
 void Mode3::update_timer_text(int value) {
     timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(value), 0xFFFFFFFF);
 }
 
-void Mode3::update_score_text(int value) {
-    score_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(value), 0xFFFFFFFF);
+void Mode3::update_distance_text(int distance) {
+    distance_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Distance: " + std::to_string(static_cast<int>(distance)), 0xFFFFFFFF);
 }
