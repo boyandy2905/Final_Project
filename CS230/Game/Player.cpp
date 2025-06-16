@@ -20,6 +20,9 @@ Player::Player(Math::vec2 start_position) :
 {
     AddGOComponent(new CS230::Sprite("Assets/Car.spt", this));
 
+    Boost_On.Load("Assets/Boost.spt", this);
+    Boost_On.PlayAnimation(static_cast<int>(Boost_Animations::None));
+
     hurt_timer = new CS230::Timer(0.0);
     boost_timer = new CS230::Timer(0.0);
     boost_cooldown_timer = new CS230::Timer(0.0);
@@ -33,6 +36,7 @@ Player::Player(Math::vec2 start_position) :
 
 void Player::Update(double dt) {
     GameObject::Update(dt);
+    Boost_On.Update(dt);
     CS230::RectCollision* collider = GetGOComponent<CS230::RectCollision>();
     Engine::GetGameStateManager().GetGSComponent<CS230::ParticleManager<Particles::Exhaust>>()->Emit(1, GetPosition(), { 0, 0 }, { -100, 0 }, 2 * PI / 3);
     if (collider->WorldBoundary().Left() < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x) {
@@ -86,10 +90,12 @@ void Player::Update(double dt) {
         boost_timer->Set(boost_time);
         is_boosting = true;
         was_boosting = true;
+        Boost_On.PlayAnimation(static_cast<int>(Boost_Animations::Boost));
     }
     if (is_boosting && boost_timer->Remaining() <= 0.0) {
         is_boosting = false;
         boost_cooldown_timer->Set(5.0);
+        Boost_On.PlayAnimation(static_cast<int>(Boost_Animations::None));
     }
     if (!is_boosting && GetVelocity().x > max_velocity) {
         double dec_velocity = GetVelocity().x - x_acceleration * dt;
@@ -125,5 +131,8 @@ void Player::ResolveCollision(GameObject* other_object) {
 void Player::Draw(Math::TransformationMatrix camera_matrix) {
     if (hurt_timer->Remaining() == 0.0 || hurt_timer->TickTock() == true) {
         CS230::GameObject::Draw(camera_matrix);
+    }
+    if (is_boosting) {
+        Boost_On.Draw(camera_matrix * GetMatrix() * Math::TranslationMatrix(GetGOComponent<CS230::Sprite>()->GetHotSpot(1)));
     }
 }

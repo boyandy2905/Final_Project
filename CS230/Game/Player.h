@@ -29,6 +29,11 @@ public:
     void Draw(Math::TransformationMatrix camera_matrix) override;
     bool IsBoosting() const { return is_boosting; }
 
+    enum class Boost_Animations {
+        None,
+        Boost
+    };
+
 private:
     static constexpr double x_acceleration = 200;
     static constexpr double max_velocity = 400;
@@ -44,4 +49,5 @@ private:
     static constexpr double boost_time = 3.0;
     double exhaust_accumulator = 0.0;    // 연기 배출 시간
     static constexpr double exhaust_interval = 0.1;
+    CS230::Sprite Boost_On;
 };
