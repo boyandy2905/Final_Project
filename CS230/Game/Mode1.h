@@ -23,6 +23,7 @@ Created:    March 13, 2025
 #include "Particles.h"
 
 class Cat;
+class Floor;
 
 class Mode1 : public CS230::GameState {
 public:
@@ -44,6 +45,7 @@ public:
 private:
     CS230::Texture texture;
     Cat* cat_ptr;
+    Floor* starting_floor_ptr;
 
     CS230::Texture* timer_texture;
     int last_timer;

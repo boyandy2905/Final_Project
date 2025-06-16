@@ -54,7 +54,7 @@ void Mode1::Load() {
     GetGSComponent<Background>()->Add("Assets/Ships.png", 0.5);
     GetGSComponent<Background>()->Add("Assets/Foreground.png", 1.0);
 
-    Floor* starting_floor_ptr = new Floor(Math::irect{ { 0, 0 }, { 930, static_cast<int>(floor) } });
+    starting_floor_ptr = new Floor(Math::irect{ { 0, 0 }, { 930, static_cast<int>(floor) } });
     GetGSComponent<CS230::GameObjectManager>()->Add(starting_floor_ptr);
     GetGSComponent<CS230::GameObjectManager>()->Add(new Floor(Math::irect{ { 1014, 0 }, { 2700, static_cast<int>(floor) } }));
     GetGSComponent<CS230::GameObjectManager>()->Add(new Floor(Math::irect{ { 2884, 0 }, { 4126, static_cast<int>(floor) } }));
